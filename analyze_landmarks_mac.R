@@ -86,16 +86,16 @@ text((pca.all$x[,1]+0.001),(pca.all$x[,2]-.002),names(gpa.all$Csize))
 
 
 ### B) Excluded specimen analysis below ###
-# Exclude fragmented specimens w/o enough LMs to est. using bilat. symm. (exclude 26,31:35)
+# Exclude fragmented specimens w/o enough LMs to est. using bilat. symm. (exclude 26,31:33,35)
 
 # 1) Estimate missing landmarks using Morpho TPS
-exclu = df[,,c(1:25,27:30)]
-spec.ids.exclu = spec.ids[c(1:25,27:30),]
-#exclu.est = fixLMtps(exclu,comp=3) # Note: only use this line if any inclu. spec. need est. LMs
+exclu = df[,,c(1:25,27:30,34)]
+spec.ids.exclu = spec.ids[c(1:25,27:30,34),]
+exclu.est = fixLMtps(exclu,comp=3) # Note: only use this line if any inclu. spec. need est. LMs
 
-# 2) Procrustes fit, 7 specimens excluded
-#gpa.exclu = gpagen(exclu_est$out) # Note: only use this line if any inclu. spec. have est. LMs
-gpa.exclu = gpagen(exclu) # Note: use this line if no estimated LMs
+# 2) Procrustes fit, 5 specimens excluded
+#gpa.exclu = gpagen(exclu) # Note: use this line if no estimated LMs
+gpa.exclu = gpagen(exclu.est$out) # Note: only use this line if any inclu. spec. have est. LMs
 gpa.exclu
 # Plot points on aligned axes
 plot(gpa.exclu)
@@ -117,10 +117,10 @@ plotRefToTarget(shape1,	shape2, method=c("vector"),	mag=10)
 plotRefToTarget(shape1,	shape2, method=c("points"),	mag=10)
 
 # 3) PCA, 6 specimens excluded
-pca_exclu = gm.prcomp(gpa.exclu$coords)
+pca.exclu = gm.prcomp(gpa.exclu$coords)
 summary(pca.exclu)
 # Plot PCA
-pca.plot = plot(pca.exclu, main = "PCA, 6 subfossils excluded", col = c(rep("darkorange4", 25), 
+pca.plot = plot(pca.exclu, main = "PCA, 5 subfossils excluded", col = c(rep("darkorange4", 25), 
                 rep("darkolivegreen", 5)), bg = c(rep("darkorange1", 25), 
                 rep("darkolivegreen3", 5)), pch=21, cex=1.3, pt.cex = 1)
 # Add polygons using custom shapeHulls1 function (excludes rehmii bc only 1 specimen)
@@ -136,7 +136,7 @@ legend(-0.168, -0.076, inset=0, legend=c("Modern","Ancient"), col=c("darkorange4
             "darkolivegreen"), pt.bg=c("darkorange1", "darkolivegreen3"), pch=21,
             y.intersp=0.3,x.intersp=0.3,text.width=0.02)
 # Add labels to points
-names(gpa.exclu$Csize) = 1:29
+names(gpa.exclu$Csize) = 1:30
 text((pca.exclu$x[,1]+0.001),(pca.exclu$x[,2]-.002),names(gpa.exclu$Csize))
 
 # Make deformation meshes to manually add to PCA plots outside of R
