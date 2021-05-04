@@ -58,6 +58,7 @@ plot(gpa.all)
 # Add connecting lines
 plotAllSpecimens(gpa.all$coords,links=links)
 # Plot outliers
+dimnames(gpa.all$coords)[[3]] = 1:35 # rename by identifying number
 plotOutliers(gpa.all$coords)
 
 # 3) PCA, all specimens
@@ -103,7 +104,9 @@ plot(gpa.exclu)
 plotAllSpecimens(gpa.exclu$coords,links=links)
 
 # Plot outliers
+dimnames(gpa.exclu$coords)[[3]] = 1:30 # rename by identifying number
 plotOutliers(gpa.exclu$coords)
+
 # Compare outliers to mean consensus shape
 shape1<-mshape(gpa.exclu$coords) # mean shape
 #shape2<-gpa.exclu$coords[,,9] # Normal ex
